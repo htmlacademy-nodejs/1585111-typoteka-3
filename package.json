@@ -1,0 +1,27 @@
+{
+  "name": "1585111-typoteka-3",
+  "version": "1.0.0",
+  "description": "Типотека",
+  "main": "./src/service/service.js",
+  "scripts": {
+    "test": "npm run eslint",
+    "eslint": "eslint --ext .js src/",
+    "start": "node ./src/service/service.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zhenia96/1585111-typoteka-3.git"
+  },
+  "author": "YAUHENI KIRYCHENKA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zhenia96/1585111-typoteka-3/issues"
+  },
+  "homepage": "https://github.com/Zhenia96/1585111-typoteka-3#readme",
+  "devDependencies": {
+    "eslint": "8.9.0"
+  },
+  "dependencies": {
+    "eslint-config-htmlacademy": "^0.6.0"
+  }
+}
