@@ -1,6 +1,6 @@
 'use strict';
 
-const {CommandName} = require(`../../../constants`);
+const {CommandName} = require(`../../constants`);
 
 module.exports = {
   name: CommandName.HELP,
