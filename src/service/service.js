@@ -1,7 +1,7 @@
 'use strict';
 
 const Cli = require(`./cli`);
-const {CommandName} = require(`../../constants`);
+const {CommandName} = require(`../constants`);
 
 const userArguments = process.argv.slice(2);
 const [userCommand] = userArguments;
