@@ -8,7 +8,7 @@ const [userCommand] = userArguments;
 
 if (!userCommand || !Cli[userCommand]) {
   Cli[CommandName.HELP].run();
-  process.exit();
+} else {
+  Cli[userCommand].run(userArguments.slice(1));
 }
 
-Cli[userCommand].run(userArguments.slice(1));
