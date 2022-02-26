@@ -61,7 +61,7 @@ const categories = [
 ];
 
 const generatePublication = (count) => {
-  return Array(count).fill({}).map(() => {
+  return Array.from({length: count}, () => {
     return {
       title: titles[getRandomInt(0, titles.length - 1)],
       createdDate: generateRandomDate(PERIOD_IN_MONTH),
