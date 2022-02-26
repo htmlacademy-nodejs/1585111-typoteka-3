@@ -10,12 +10,14 @@ const getRandomInt = (min, max) => {
 };
 
 const shuffle = (someArray) => {
-  for (let i = someArray.length - 1; i > 0; i--) {
-    const randomPosition = Math.floor(Math.random() * i);
-    [someArray[i], someArray[randomPosition]] = [someArray[randomPosition], someArray[i]];
+  const shuffledArray = [...someArray];
+
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const randomPosition = getRandomInt(0, i);
+    [shuffledArray[i], shuffledArray[randomPosition]] = [shuffledArray[randomPosition], shuffledArray[i]];
   }
 
-  return someArray;
+  return shuffledArray;
 };
 
 const generateRandomDate = (periodInMonths) => {
