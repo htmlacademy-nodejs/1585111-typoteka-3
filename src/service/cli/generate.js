@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require(`fs`);
+const chalk = require(`chalk`);
 const {CommandName} = require(`../../constants`);
 const {getRandomInt, shuffle, generateRandomDate} = require(`../../utils`);
 
@@ -79,7 +80,7 @@ module.exports = {
     const publicationCount = parseInt(count, 10) || DEFAULT_COUNT;
 
     if (publicationCount > MAX_COUNT) {
-      console.log(`Не больше ${MAX_COUNT} публикаций`);
+      console.log(chalk.red(`Не больше ${MAX_COUNT} публикаций`));
       process.exit(1);
     }
 
@@ -87,10 +88,10 @@ module.exports = {
 
     fs.writeFile(FILE_NAME, generatedPublications, (err) => {
       if (err) {
-        console.log(`Ошибка генерации публикаций`);
+        console.log(chalk.red(`Ошибка генерации публикаций`));
         process.exit(1);
       }
-      console.log(`Публикации успешно сгенерированы`);
+      console.log(chalk.green(`Публикации успешно сгенерированы`));
     });
   }
 };
