@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require(`fs`);
+const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 const {CommandName} = require(`../../constants`);
 const {getRandomInt, shuffle, generateRandomDate} = require(`../../utils`);
@@ -73,10 +73,20 @@ const generatePublication = (count) => {
   });
 };
 
+const writePublications = async (fileName, publications) => {
+  try {
+    await fs.writeFile(fileName, publications);
+    console.log(chalk.green(`Публикации успешно сгенерированы`));
+  } catch (err) {
+    console.log(chalk.red(`Ошибка генерации публикаций`));
+    process.exit(1);
+  }
+};
+
 
 module.exports = {
   name: CommandName.GENERATE,
-  run([count]) {
+  run: ([count]) => {
     const publicationCount = parseInt(count, 10) || DEFAULT_COUNT;
 
     if (publicationCount > MAX_COUNT) {
@@ -86,12 +96,6 @@ module.exports = {
 
     const generatedPublications = JSON.stringify(generatePublication(publicationCount));
 
-    fs.writeFile(FILE_NAME, generatedPublications, (err) => {
-      if (err) {
-        console.log(chalk.red(`Ошибка генерации публикаций`));
-        process.exit(1);
-      }
-      console.log(chalk.green(`Публикации успешно сгенерированы`));
-    });
+    writePublications(FILE_NAME, generatedPublications);
   }
 };
