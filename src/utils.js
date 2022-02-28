@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require(`fs`).promises;
+const chalk = require(`chalk`);
 const dayjs = require(`dayjs`);
 
 const getRandomInt = (min, max) => {
@@ -28,8 +30,19 @@ const generateRandomDate = (periodInMonths) => {
   return randomDate;
 };
 
+const readFile = async (fileName) => {
+  try {
+    const content = await fs.readFile(fileName, `utf8`);
+    return content.trim().split(`\n`);
+  } catch (err) {
+    console.log(chalk.red(err));
+    return [];
+  }
+};
+
 module.exports = {
   getRandomInt,
   shuffle,
   generateRandomDate,
+  readFile,
 };

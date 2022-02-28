@@ -3,71 +3,25 @@
 const fs = require(`fs`).promises;
 const chalk = require(`chalk`);
 const {CommandName} = require(`../../constants`);
-const {getRandomInt, shuffle, generateRandomDate} = require(`../../utils`);
+const {getRandomInt, shuffle, generateRandomDate, readFile} = require(`../../utils`);
 
 const DEFAULT_COUNT = 1;
 const MAX_COUNT = 1000;
 const ANNOUNCE_SIZE = 5;
 const PERIOD_IN_MONTH = 3;
 const FILE_NAME = `mock.json`;
+const FILE_TITLES = `src/data/titles.txt`;
+const FILE_SENTENCES = `src/data/sentences.txt`;
+const FILE_CATEGORIES = `src/data/categories.txt`;
 
-const titles = [
-  `Ёлки. История деревьев`,
-  `Как перестать беспокоиться и начать жить`,
-  `Как достигнуть успеха не вставая с кресла`,
-  `Обзор новейшего смартфона`,
-  `Лучшие рок-музыканты 20-века`,
-  `Как начать программировать`,
-  `Учим HTML и CSS`,
-  `Что такое золотое сечение`,
-  `Как собрать камни бесконечности`,
-  `Борьба с прокрастинацией`,
-  `Рок — это протест`,
-  `Самый лучший музыкальный альбом этого года`,
-];
 
-const texts = [
-  `Ёлки — это не просто красивое дерево. Это прочная древесина.`,
-  `Первая большая ёлка была установлена только в 1938 году.`,
-  `Вы можете достичь всего. Стоит только немного постараться и запастись книгами.`,
-  `Этот смартфон — настоящая находка. Большой и яркий экран, мощнейший процессор — всё это в небольшом гаджете.`,
-  `Золотое сечение — соотношение двух величин, гармоническая пропорция.`,
-  `Собрать камни бесконечности легко, если вы прирожденный герой.`,
-  `Освоить вёрстку несложно. Возьмите книгу новую книгу и закрепите все упражнения на практике.`,
-  `Бороться с прокрастинацией несложно. Просто действуйте. Маленькими шагами.`,
-  `Программировать не настолько сложно, как об этом говорят.`,
-  `Простые ежедневные упражнения помогут достичь успеха.`,
-  `Это один из лучших рок-музыкантов.`,
-  `Он написал больше 30 хитов.`,
-  `Из под его пера вышло 8 платиновых альбомов.`,
-  `Процессор заслуживает особого внимания. Он обязательно понравится геймерам со стажем.`,
-  `Рок-музыка всегда ассоциировалась с протестами. Так ли это на самом деле?`,
-  `Достичь успеха помогут ежедневные повторения.`,
-  `Помните, небольшое количество ежедневных упражнений лучше, чем один раз, но много.`,
-  `Как начать действовать? Для начала просто соберитесь.`,
-  `Игры и программирование разные вещи. Не стоит идти в программисты, если вам нравятся только игры.`,
-  `Альбом стал настоящим открытием года. Мощные гитарные рифы и скоростные соло-партии не дадут заскучать.`,
-];
-
-const categories = [
-  `Деревья`,
-  `За жизнь`,
-  `Без рамки`,
-  `Разное`,
-  `IT`,
-  `Музыка`,
-  `Кино`,
-  `Программирование`,
-  `Железо`,
-];
-
-const generatePublication = (count) => {
+const generatePublication = (count, titles, sentences, categories) => {
   return Array.from({length: count}, () => {
     return {
       title: titles[getRandomInt(0, titles.length - 1)],
       createdDate: generateRandomDate(PERIOD_IN_MONTH),
-      announce: shuffle(texts).slice(0, getRandomInt(1, ANNOUNCE_SIZE - 1)),
-      fullText: shuffle(texts).slice(0, getRandomInt(1, texts.length - 1)),
+      announce: shuffle(sentences).slice(0, getRandomInt(1, ANNOUNCE_SIZE - 1)),
+      fullText: shuffle(sentences).slice(0, getRandomInt(1, sentences.length - 1)),
       сategory: shuffle(categories).slice(0, getRandomInt(1, categories.length - 1)),
     };
   });
@@ -83,10 +37,9 @@ const writePublications = async (fileName, publications) => {
   }
 };
 
-
 module.exports = {
   name: CommandName.GENERATE,
-  run: ([count]) => {
+  async run([count]) {
     const publicationCount = parseInt(count, 10) || DEFAULT_COUNT;
 
     if (publicationCount > MAX_COUNT) {
@@ -94,7 +47,11 @@ module.exports = {
       process.exit(1);
     }
 
-    const generatedPublications = JSON.stringify(generatePublication(publicationCount));
+    const titles = await readFile(FILE_TITLES);
+    const sentences = await readFile(FILE_SENTENCES);
+    const categories = await readFile(FILE_CATEGORIES);
+
+    const generatedPublications = JSON.stringify(generatePublication(publicationCount, titles, sentences, categories));
 
     writePublications(FILE_NAME, generatedPublications);
   }
