@@ -20,9 +20,9 @@ const generatePublication = (count, titles, sentences, categories) => {
     return {
       title: titles[getRandomInt(0, titles.length - 1)],
       createdDate: generateRandomDate(PERIOD_IN_MONTH),
-      announce: shuffle(sentences).slice(0, getRandomInt(1, ANNOUNCE_SIZE - 1)),
-      fullText: shuffle(sentences).slice(0, getRandomInt(1, sentences.length - 1)),
-      сategory: shuffle(categories).slice(0, getRandomInt(1, categories.length - 1)),
+      announce: shuffle(sentences).slice(0, getRandomInt(1, ANNOUNCE_SIZE - 1)).join(` `),
+      fullText: shuffle(sentences).slice(0, getRandomInt(1, sentences.length - 1)).join(` `),
+      сategory: shuffle(categories).slice(0, getRandomInt(1, categories.length - 1)).join(` `),
     };
   });
 };
