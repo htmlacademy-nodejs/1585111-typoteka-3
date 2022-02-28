@@ -10,9 +10,9 @@ const MAX_COUNT = 1000;
 const ANNOUNCE_SIZE = 5;
 const PERIOD_IN_MONTH = 3;
 const FILE_NAME = `mock.json`;
-const FILE_TITLES = `src/data/titles.txt`;
-const FILE_SENTENCES = `src/data/sentences.txt`;
-const FILE_CATEGORIES = `src/data/categories.txt`;
+const FILE_TITLES = `data/titles.txt`;
+const FILE_SENTENCES = `data/sentences.txt`;
+const FILE_CATEGORIES = `data/categories.txt`;
 
 
 const generatePublication = (count, titles, sentences, categories) => {
