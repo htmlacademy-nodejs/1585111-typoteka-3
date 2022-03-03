@@ -45,7 +45,7 @@ const onClientRequest = async (req, res) => {
 module.exports = {
   name: CommandName.SERVER,
   run([port]) {
-    const currentPort = port || DEFAULT_PORT;
+    const currentPort = parseInt(port, 10) || DEFAULT_PORT;
 
     const server = http.createServer(onClientRequest);
 
