@@ -1,0 +1,11 @@
+mixin header(type)
+  header.header
+    a.header__logo.logo(href='#')
+      img.logo__image(src='img/icons/logo-image-only.svg' alt='логотип Тайпотеки')
+      span.logo__name Типотека
+    if type === `authorized`
+      include header-authorized
+    else if type === `unauthorized`
+      include header-unauthorized
+    else
+      include header-menu
