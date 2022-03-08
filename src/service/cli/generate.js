@@ -47,9 +47,9 @@ module.exports = {
       process.exit(1);
     }
 
-    const titles = await readFile(FILE_TITLES);
-    const sentences = await readFile(FILE_SENTENCES);
-    const categories = await readFile(FILE_CATEGORIES);
+    const titles = await readFile(FILE_TITLES, `text`);
+    const sentences = await readFile(FILE_SENTENCES, `text`);
+    const categories = await readFile(FILE_CATEGORIES, `text`);
 
     const generatedPublications = JSON.stringify(generatePublication(publicationCount, titles, sentences, categories));
 
