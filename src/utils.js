@@ -30,6 +30,8 @@ const generateRandomDate = (periodInMonths) => {
   return randomDate;
 };
 
+const addCurrentDate = (format) => dayjs().format(format);
+
 const readFile = async (fileName) => {
   try {
     const content = await fs.readFile(fileName, `utf8`);
@@ -44,5 +46,6 @@ module.exports = {
   getRandomInt,
   shuffle,
   generateRandomDate,
+  addCurrentDate,
   readFile,
 };

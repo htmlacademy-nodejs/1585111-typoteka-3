@@ -19,11 +19,16 @@ const FILE_SENTENCES = `data/sentences.txt`;
 const FILE_CATEGORIES = `data/categories.txt`;
 const FILE_COMMENTS = `data/comments.txt`;
 
-const generateComments = (count, comments) => {
+const generateComments = (count, comments, title) => {
   return Array.from({length: count}, () => {
     return {
+      userAvatar: ``,
+      userName: ``,
+      userSurname: ``,
       id: nanoid(MAX_ID_LENGTH),
       text: shuffle(comments).slice(0, getRandomInt(0, comments.length - 1)).join(` `),
+      createdDate: generateRandomDate(PERIOD_IN_MONTH),
+      title,
     };
   });
 };
@@ -31,14 +36,17 @@ const generateComments = (count, comments) => {
 
 const generatePublication = (count, titles, sentences, categories, comments) => {
   return Array.from({length: count}, () => {
+    const title = titles[getRandomInt(0, titles.length - 1)];
+
     return {
-      title: titles[getRandomInt(0, titles.length - 1)],
+      title,
+      photo: ``,
       createdDate: generateRandomDate(PERIOD_IN_MONTH),
+      сategory: shuffle(categories).slice(0, getRandomInt(1, categories.length - 1)).join(` `),
       announce: shuffle(sentences).slice(0, getRandomInt(1, ANNOUNCE_SIZE - 1)).join(` `),
       fullText: shuffle(sentences).slice(0, getRandomInt(1, sentences.length - 1)).join(` `),
-      сategory: shuffle(categories).slice(0, getRandomInt(1, categories.length - 1)).join(` `),
       id: nanoid(MAX_ID_LENGTH),
-      comments: generateComments(MAX_COMMENTS_COUNT, comments)
+      comments: generateComments(MAX_COMMENTS_COUNT, comments, title)
     };
   });
 };
