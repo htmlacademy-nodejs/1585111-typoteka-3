@@ -7,8 +7,8 @@ module.exports = (servise) => (req, res, next) => {
   const comment = servise.getOne(articleId, commentId);
 
   if (!comment) {
-    res.status(HttpCode.NOT_FOUND).send(`Comment with ${commentId} id not found`);
+    return res.status(HttpCode.NOT_FOUND).send(`Comment with ${commentId} id not found`);
   }
 
-  next();
+  return next();
 };

@@ -7,9 +7,9 @@ module.exports = (servise) => (req, res, next) => {
   const article = servise.getOne(articleId);
 
   if (!article) {
-    res.status(HttpCode.NOT_FOUND).send(`Article with ${articleId} id not found`);
+    return res.status(HttpCode.NOT_FOUND).send(`Article with ${articleId} id not found`);
   }
 
   res.locals.article = article;
-  next();
+  return next();
 };

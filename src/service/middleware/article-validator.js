@@ -10,8 +10,8 @@ module.exports = (req, res, next) => {
   const hasKeys = keys.every((key) => requiredFields.includes(key));
 
   if (!hasKeys || requiredFields.length !== keys.length) {
-    res.status(HttpCode.BAD_REQUEST).send(`Bad request`);
-  } else {
-    next();
+    return res.status(HttpCode.BAD_REQUEST).send(`Bad request`);
   }
+
+  return next();
 };
