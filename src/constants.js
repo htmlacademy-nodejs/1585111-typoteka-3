@@ -23,8 +23,14 @@ const DateFormat = {
   SHORT: `DD.MM.YYYY`,
 };
 
+const Env = {
+  DEVELOPMENT: `development`,
+  PRODUCTION: `production`
+};
+
 module.exports = {
   CommandName,
   DateFormat,
-  HttpCode
+  HttpCode,
+  Env
 };
