@@ -30,8 +30,15 @@ class ArticlesService {
   }
 
   remove(id) {
+    const article = this._articles.find((item) => item.id === id);
+
+    if (!article) {
+      return null;
+    }
+
     this._articles = this._articles.filter((item) => item.id !== id);
-    return this._articles;
+
+    return article;
   }
 
   update(id, article) {

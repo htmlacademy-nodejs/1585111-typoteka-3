@@ -33,8 +33,14 @@ class CommentsService {
 
   remove(articleId, commentId) {
     const article = this._articles.find((item) => item.id === articleId);
+    const comment = article.comments.find((item) => item.id === commentId);
+
+    if (!comment) {
+      return null;
+    }
+
     article.comments = article.comments.filter((item) => item.id !== commentId);
-    return article.comments;
+    return comment;
   }
 }
 
